@@ -12,7 +12,10 @@ import QnaListView from "@/components/qna/QnaListView";
 import QnaRegistView from "@/components/qna/QnaRegistView";
 import QnaDetailView from "@/components/qna/QnaDetailView";
 import QuestionModifyView from "@/components/qna/QuestionModifyView";
-
+import OnSaleView from"@/views/OnSaleView";
+import OnSaleRegistView from "@/components/onsale/OnSaleRegistView";
+import HouseView from "@/views/HouseView";
+import HouseRegistView from "@/components/house/HouseRegistView";
 
 Vue.use(VueRouter);
 
@@ -92,6 +95,35 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+
+  {
+    path: "/onsale",
+    name: "onsale",
+    component: OnSaleView,
+    redirect: "/onsale/registform",
+    children: [
+      {
+        path: "registform",
+        name: "OnSaleRegistView",
+        component: OnSaleRegistView,
+      },
+    ],
+  },
+  {
+    path: "/house",
+    name: "house",
+    component: HouseView,
+    redirect: "/house/list",
+    children: [
+      {
+        path: "regist",
+        name: "HouseRegistView",
+        component: HouseRegistView,
+      },
+    ],
+  },
+
+  
 ];
 
 const router = new VueRouter({
