@@ -36,25 +36,33 @@ const upgradeBanner = computed(() => {
   <ul>
     <VerticalNavLink
       :item="{
-        title: 'Dashboard',
+        title: '거래 내역',
         to: 'index',
         icon: { icon: 'mdi-home-outline' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Account Settings',
+        title: '프로필',
         to: 'account-settings',
         icon: { icon: 'mdi-account-cog-outline' }
       }"
     />
+ 
+    <VerticalNavLink
+      :item="{
+        title: '프로필',
+        to: 'account-settings',
+        icon: { icon: 'mdi-account-cog-outline' }
+      }"
+    v-if="dealer"/>
     <!-- 👉 Pages -->
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
     <VerticalNavLink
       :item="{
         title: 'Login',
         to: 'login',
-        target: '_blank',
+      //  target: '_blank',
         icon: { icon: 'mdi-login' }
       }"
     />
@@ -62,7 +70,7 @@ const upgradeBanner = computed(() => {
       :item="{
         title: 'Register',
         to: 'register',
-        target: '_blank',
+      //  target: '_blank',
         icon: { icon: 'mdi-account-plus-outline' }
       }"
     />
@@ -132,6 +140,17 @@ const upgradeBanner = computed(() => {
     >
   </a>
 </template>
+<script>
+
+
+export default {
+  data() {
+    return {
+      dealer : true,
+    };
+  },
+};
+</script>
 
 <style lang="scss">
 // .v-navigation-drawer {
