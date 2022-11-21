@@ -22,11 +22,11 @@ const upgradeBanner = computed(() => {
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
     >
       <!-- ℹ️ You can also use img tag or VImg here -->
-      <div v-html="logo" />
+      <img src="../../../public/logo.png" width ="30"/>
 
       <Transition name="vertical-nav-app-title">
         <h1 class="font-weight-semibold leading-normal text-xl text-uppercase">
-          Materio
+          내집클로버
         </h1>
       </Transition>
     </RouterLink>
@@ -86,8 +86,15 @@ const upgradeBanner = computed(() => {
     />
 
     <!-- 👉 User Interface -->
-    <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" />
+    <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" v-if="dealer"/>
 
+    <VerticalNavLink
+      :item="{
+        title: '매물등록',
+        to: 'onsale',
+        icon: { icon: 'mdi-domain-plus' }
+      }"
+    />
     <VerticalNavLink
       :item="{
         title: 'Typography',
