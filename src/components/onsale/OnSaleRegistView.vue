@@ -96,7 +96,7 @@ export default {
         };
     },
     created(){
-        const url =`house/list`;
+        const url =`http://localhost:8080/house/list`;
         http.get(url)
           .then(({data})=>{
             console.log("data....")
