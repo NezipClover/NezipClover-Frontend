@@ -1,18 +1,19 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="@/assets/logo.png" />
-    <main-content :msg="msg"></main-content>
+    <!-- <main-content :msg="msg"></main-content> -->
+    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import MainContent from "@/components/MainContent.vue";
+// import MainContent from "@/components/MainContent.vue";
 export default {
   name: "HomeView",
-  components: {
-    MainContent,
-  },
+  // components: {
+  //   MainContent,
+  // },
   data() {
     return {
       msg: "SSAFY에 오신것을 환경합니다.",

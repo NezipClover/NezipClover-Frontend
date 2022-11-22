@@ -16,6 +16,7 @@
       <div class="col-2"></div>
     </div>
     <div v-if="books.length > 0">
+    
       <b-table hover striped    :items="books"    :fields="fields"    @row-clicked="goDetail"></b-table>
     </div>
     <div v-else>등록된 책 목록이 없습니다.</div>
