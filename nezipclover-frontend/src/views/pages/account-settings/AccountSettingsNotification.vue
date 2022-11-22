@@ -1,38 +1,59 @@
+
 <script setup>
+
+
+
 const recentDevices = ref([
   {
-    type: 'New for you',
+    type: '소식 알림',
     email: true,
     browser: true,
     app: true,
   },
   {
-    type: 'Account activity',
+    type: '사용자 활동',
     email: true,
     browser: true,
     app: true,
   },
   {
-    type: 'A new browser used to sign in',
+    type: '새로운 브라우저로 로그인',
     email: true,
     browser: true,
     app: false,
   },
   {
-    type: 'A new device is linked',
+    type: '새로운 기기에서 사용',
     email: true,
     browser: false,
     app: false,
   },
 ])
-const selectedNotification = ref('Only when I\'m online')
+const selectedNotification = ref('내가 온라인 일 때만 (기본값)')
+</script>
+<script>
+import { default as axios } from 'axios';
+
+export default {
+
+    methods: {
+      onSubmit() {
+        
+        alert("설정이 저장되었습니다.")
+       //현재 경로로
+        this.$router.go(this.$router.currentRoute);
+     },
+    }
+}
 </script>
 
+
 <template>
-  <VCard title="Recent Devices">
+  <VCard title="최근 사용 기록">
     <VCardText>
-      We need permission from your browser to show notifications.
-      <a href="javascript:void(0)">Request Permission</a>
+      알림을 표시하려면 브라우저의 권한이 필요합니다.
+      
+      <a href="javascript:void(0)">권한 요청하기</a>
     </VCardText>
 
     <VTable class="text-no-wrap">
@@ -75,9 +96,9 @@ const selectedNotification = ref('Only when I\'m online')
     <VDivider />
 
     <VCardText>
-      <VForm @submit.prevent="() => {}">
+      <VForm @submit="this.onSubmit">
         <p class="text-base font-weight-medium">
-          When should we send you notifications?
+          언제 푸쉬 알림을 보내드릴까요?
         </p>
 
         <VRow>
@@ -88,19 +109,21 @@ const selectedNotification = ref('Only when I\'m online')
             <VSelect
               v-model="selectedNotification"
               mandatory
-              :items="['Only when I\'m online', 'Anytime']"
+              :items="['내가 온라인일 때만', '항상']"
+              name="abab"
             />
           </VCol>
         </VRow>
 
         <div class="d-flex flex-wrap gap-4 mt-4">
           <VBtn type="submit">
-            Save Changes
+            변경내역 저장
           </VBtn>
           <VBtn
             color="secondary"
             variant="tonal"
             type="reset"
+            @click="this.onClickReset"
           >
             Reset
           </VBtn>

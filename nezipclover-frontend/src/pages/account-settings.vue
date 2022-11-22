@@ -10,17 +10,17 @@ const activeTab = ref(route.params.tab)
 // tabs
 const tabs = [
   {
-    title: 'Account',
+    title: '나의 계정 정보',
     icon: 'mdi-account-outline',
     tab: 'account',
   },
   {
-    title: 'Security',
+    title: '보안 설정',
     icon: 'mdi-lock-open-outline',
     tab: 'security',
   },
   {
-    title: 'Notifications',
+    title: '푸쉬 알림 설정',
     icon: 'mdi-bell-outline',
     tab: 'notification',
   },

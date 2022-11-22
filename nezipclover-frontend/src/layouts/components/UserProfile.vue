@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <script setup>
 import avatar1 from '@/assets/images/avatars/avatar-1.png'
 
@@ -10,6 +16,21 @@ const avatarBadgeProps = {
   bordered: true,
 }
 </script>
+<script>
+import { default as axios } from 'axios';
+
+export default {
+    methods: {
+      changeProfilePhoto() {
+      eventBus.$on('이벤트명', function(data){ console.log(555); });
+      console.log("다른 컴포넌트 호출 성공")
+       //this.$router.push({ name: "index" });
+     },
+  }
+}
+
+</script>
+
 
 <template>
   <VBadge v-bind="avatarBadgeProps">
