@@ -41,13 +41,6 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
-    <VerticalNavLink
-      :item="{
-        title: '프로필',
-        to: 'account-settings',
-        icon: { icon: 'mdi-account-cog-outline' }
-      }"
-    />
  
     <VerticalNavLink
       :item="{
@@ -60,7 +53,7 @@ const upgradeBanner = computed(() => {
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
     <VerticalNavLink
       :item="{
-        title: 'Login',
+        title: '로그인',
         to: 'login',
       //  target: '_blank',
         icon: { icon: 'mdi-login' }
@@ -68,7 +61,7 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
-        title: 'Register',
+        title: '회원 가입',
         to: 'register',
       //  target: '_blank',
         icon: { icon: 'mdi-account-plus-outline' }
@@ -78,7 +71,7 @@ const upgradeBanner = computed(() => {
     <!-- ℹ️ This path doesn't exist so 404 route will catch this undefined path -->
     <VerticalNavLink
       :item="{
-        title: 'Error',
+        title: '에러 페이지',
         to: { path: '/error' },
         target: '_blank',
         icon: { icon: 'mdi-alert-circle-outline' }

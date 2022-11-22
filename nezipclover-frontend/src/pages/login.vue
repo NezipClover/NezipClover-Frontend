@@ -151,15 +151,6 @@ const isPasswordVisible = ref(false)
 import { default as axios } from 'axios';
 
 export default {
-    created(){
-        const url =`http://localhost:8080/house/list`;
-        axios.get(url)
-          .then(({data})=>{
-            console.log("data....12")
-            console.log('응답 데이타', data)
-            this.houses = data;
-          })
-    },
     methods: {
       moveHandler() {
        console.log("moveHandler...........")
@@ -177,15 +168,25 @@ export default {
         axios.post(url, this.form)
           .then(({data})=>{
             console.log("data....")
+            console.log(data.result)
             console.log(data);
  
             console.log('응답 데이타', this.form)
-            if (data == "success") {
-              
+            if (data.result == "success") {
+
                 event.preventDefault()
                 alert(JSON.stringify(this.form))
+
+             
+                sessionStorage.setItem("email", data.email);
+                sessionStorage.setItem("password", data.password);
+                sessionStorage.setItem("name", data.name);
+                sessionStorage.setItem("userKind", data.userKind);
+
+
+
                 this.moveHandler();
-            } else if (data == "fail") {
+            } else if (data.result == "fail") {
               event.preventDefault()
               alert("없는 아이디거나, 잘못된 정보를 입력하셨습니다.")
 
