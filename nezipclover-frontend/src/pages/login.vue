@@ -26,6 +26,7 @@ const isPasswordVisible = ref(false)
       class="auth-card pa-4 pt-7"
       max-width="448"
     >
+    
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">

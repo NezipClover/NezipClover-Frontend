@@ -90,6 +90,13 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
+        title: '질문&답변 게시판',
+        to: 'qnalist',
+        icon: { icon: 'mdi-domain-plus' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
         title: 'Typography',
         to: 'typography',
         icon: { icon: 'mdi-alpha-t-box-outline' }
