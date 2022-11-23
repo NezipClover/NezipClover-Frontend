@@ -138,7 +138,7 @@ export default {
 
 
 
-    <VTable class="text-no-wrap">
+    <VTable class="text-no-wrap" >
       <thead>
         <tr>
           <th scope="col">
@@ -158,7 +158,8 @@ export default {
       <tbody>
         <tr
           v-for="question in this.questions"
-          :key="question.id"
+          :key="question.id" 
+          @clicked="goDetail"
         >
           <td>
           {{question.id}}  <!-- {{ device.type }} -->
