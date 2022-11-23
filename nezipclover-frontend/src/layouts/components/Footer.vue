@@ -4,7 +4,7 @@
     <span class="d-flex align-center">
       &copy;
       {{ new Date().getFullYear() }}
-      Made With
+      행운의 내집 찾기
       <VIcon
         icon="mdi-heart-outline"
         color="error"
@@ -12,11 +12,11 @@
         class="mx-1"
       />
       By <a
-        href="https://themeselection.com"
+        href="/"
         target="_blank"
         rel="noopener noreferrer"
         class="text-primary ms-1"
-      >ThemeSelection</a>
+      >NezipClover</a>
     </span>
     <!-- 👉 Footer: right content -->
     <span class="d-md-flex gap-x-4 text-primary d-none">

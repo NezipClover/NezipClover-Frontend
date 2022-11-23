@@ -182,7 +182,7 @@ export default {
                 sessionStorage.setItem("password", data.password);
                 sessionStorage.setItem("name", data.name);
                 sessionStorage.setItem("userKind", data.userKind);
-
+                sessionStorage.setItem("accessToken", data.accessToken);
 
 
                 this.moveHandler();
