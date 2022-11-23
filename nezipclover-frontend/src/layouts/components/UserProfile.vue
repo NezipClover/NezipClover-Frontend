@@ -20,6 +20,16 @@ const avatarBadgeProps = {
 import { default as axios } from 'axios';
 
 export default {
+  data() {
+    return {
+      name: '',
+      userKind: '',
+    };
+  },
+  created() {
+    this.name = sessionStorage.getItem("name");
+    this.userKind = sessionStorage.getItem("userKind");
+  },
     methods: {
       changeProfilePhoto() {
       eventBus.$on('이벤트명', function(data){ console.log(555); });
@@ -65,10 +75,10 @@ export default {
               </VListItemAction>
             </template>
 
-            <VListItemTitle class="font-weight-semibold">
+            <VListItemTitle class="font-weight-semibold" v-model="this.name">
               John Doe
             </VListItemTitle>
-            <VListItemSubtitle class="text-disabled">
+            <VListItemSubtitle class="text-disabled" v-model="this.userKind">
               Admin
             </VListItemSubtitle>
           </VListItem>
@@ -76,7 +86,7 @@ export default {
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem link>
+          <VListItem link to="/">
             <template #prepend>
               <VIcon
                 class="me-2"
