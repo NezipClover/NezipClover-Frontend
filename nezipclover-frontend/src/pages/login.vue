@@ -32,14 +32,14 @@ const isPasswordVisible = ref(false)
             <div v-html="logo" />
           </div>
         </template>
-
         <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Materio
+          내집클로버
         </VCardTitle>
+        
       </VCardItem>
 
       <VCardText class="pt-2">
-        <h5 class="text-h5 font-weight-semibold mb-1">
+        <h5 class="text-h5 font-weight-semibold mb-1 text-center">
          기다리고 있었어요! 👋🏻
         </h5>
         <p class="mb-0">

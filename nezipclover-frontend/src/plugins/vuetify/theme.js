@@ -4,7 +4,8 @@ const theme = {
     light: {
       dark: false,
       colors: {
-        'primary': '#9155FD',
+        //'primary': '#9155FD',
+        'primary': '#0dab5b',
         'secondary': '#8A8D93',
         'on-secondary': '#fff',
         'success': '#56CA00',
@@ -41,7 +42,9 @@ const theme = {
     dark: {
       dark: true,
       colors: {
-        'primary': '#9155FD',
+        //'primary': '#9155FD',
+        'primary': '0dab5b',
+        
         'secondary': '#8A8D93',
         'on-secondary': '#fff',
         'success': '#56CA00',
@@ -67,7 +70,8 @@ const theme = {
         'grey-900': '#E7E9F6',
       },
       variables: {
-        'border-color': '#E7E3FC',
+        //'border-color': '#E7E3FC', 
+        'border-color': '#dcf4eb',
         'medium-emphasis-opacity': 0.68,
 
         // Shadows
