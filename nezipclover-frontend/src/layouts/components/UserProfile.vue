@@ -6,6 +6,15 @@
 
 <script setup>
 import avatar1 from '@/assets/images/avatars/avatar-1.png'
+const info = ref({
+  name: '',
+  userKind: '',
+})
+
+const infoForLogout = ref({
+  email: '',
+  accessToken: '',
+})
 
 const avatarBadgeProps = {
   dot: true,
@@ -20,15 +29,16 @@ const avatarBadgeProps = {
 import { default as axios } from 'axios';
 
 export default {
-  data() {
-    return {
-      name: '',
-      userKind: '',
-    };
-  },
+
   created() {
-    this.name = sessionStorage.getItem("name");
-    this.userKind = sessionStorage.getItem("userKind");
+    this.info.name = sessionStorage.getItem("name");
+    this.info.userKind = sessionStorage.getItem("userKind");
+    console.log(this.info.name)
+    console.log(this.info.userKind)
+    this.infoForLogout.email = sessionStorage.getItem("email");
+    this.infoForLogout.accessToken = sessionStorage.getItem("accessToken");
+    console.log(this.infoForLogout.email);
+    console.log(this.infoForLogout.accessToken);
   },
     methods: {
       changeProfilePhoto() {
@@ -36,9 +46,42 @@ export default {
       console.log("다른 컴포넌트 호출 성공")
        //this.$router.push({ name: "index" });
      },
-  }
-}
+     moveHandler() {
+       console.log("moveHandler...........")
+       this.$router.push({ name: "index" });
+     },
+      onLogout(event) {
+        event.preventDefault(); 
+        console.log(123123555);
+          if (!sessionStorage.getItem("accessToken")) {
+            alert("로그인 된 상태가 아니므로 메인 화면으로 돌아갑니다.");
+            this.moveHandler();
+          } else {
+          const url =`http://localhost:8080/user/logout`;
 
+          axios.post(url, this.infoForLogout)
+            .then(({data})=>{
+              if (data == "success") {
+                console.log(5252);
+                event.preventDefault()
+
+             
+                sessionStorage.clear();
+                sessionStorage.clear;
+
+                alert("웹 사이트로부터 로그아웃 했습니다.")
+
+
+                this.moveHandler();
+            } 
+
+
+          
+          })
+          }
+  },
+}
+}
 </script>
 
 
@@ -75,18 +118,22 @@ export default {
               </VListItemAction>
             </template>
 
-            <VListItemTitle class="font-weight-semibold" v-model="this.name">
-              John Doe
+            <VListItemTitle class="font-weight-semibold" >
+              
+              이름(닉네임) : {{this.info.name}}
+              
+              
             </VListItemTitle>
-            <VListItemSubtitle class="text-disabled" v-model="this.userKind">
-              Admin
+            <VListItemSubtitle class="text-disabled">
+              사용자 타입 : {{this.info.userKind == 0 ? "이용자" : "공인중개사"}}
+              
             </VListItemSubtitle>
           </VListItem>
 
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem link to="/">
+          <VListItem to="/account-settings">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -95,11 +142,11 @@ export default {
               />
             </template>
 
-            <VListItemTitle>Profile</VListItemTitle>
+            <VListItemTitle>사용자 계정 정보</VListItemTitle>
           </VListItem>
 
           <!-- 👉 Settings -->
-          <VListItem link>
+          <VListItem to="/account-settings">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -108,24 +155,13 @@ export default {
               />
             </template>
 
-            <VListItemTitle>Settings</VListItemTitle>
+            <VListItemTitle>푸쉬 알림 관리</VListItemTitle>
           </VListItem>
 
-          <!-- 👉 Pricing -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="mdi-currency-usd"
-                size="22"
-              />
-            </template>
 
-            <VListItemTitle>Pricing</VListItemTitle>
-          </VListItem>
 
           <!-- 👉 FAQ -->
-          <VListItem link>
+          <VListItem to="/">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -134,14 +170,14 @@ export default {
               />
             </template>
 
-            <VListItemTitle>FAQ</VListItemTitle>
+            <VListItemTitle>사이트 맵</VListItemTitle>
           </VListItem>
 
           <!-- Divider -->
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="this.onLogout">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -150,7 +186,7 @@ export default {
               />
             </template>
 
-            <VListItemTitle>Logout</VListItemTitle>
+            <VListItemTitle>로그아웃</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>

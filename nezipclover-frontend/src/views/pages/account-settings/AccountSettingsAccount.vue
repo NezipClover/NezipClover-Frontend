@@ -7,6 +7,7 @@ const form = ref({
   name: '',
   password: '',
   userKind: '이용자',
+  accessToken: '',
 })
 
 
@@ -108,6 +109,7 @@ export default {
     this.form.name = sessionStorage.getItem("name");
     this.form.password = sessionStorage.getItem("password");
     this.form.userKind = sessionStorage.getItem("userKind") == 0 ? "이용자" : "공인중개사"
+    this.form.accessToken = sessionStorage.getItem("accessToken");
   },
     methods: {
       refreshPage() {
@@ -127,6 +129,7 @@ export default {
       console.log(this.form.name);
       console.log(this.form.password);
       console.log(this.form.userKind);
+      console.log(this.form.accessToken);
      
     
       const url =`http://localhost:8080/user/delete`;
@@ -169,7 +172,7 @@ export default {
                 sessionStorage.setItem("name", this.form.name);
                 sessionStorage.setItem("password", this.form.password);
                 sessionStorage.setItem("userKind", this.form.userKind);
-
+                sessionStorage.setItem("accessToken", this.form.accessToken)
 
 
                 this.refreshPage();

@@ -5,6 +5,7 @@ const form = ref({
   name: '',
   password: '',
   userKind: '이용자',
+  accessToken: '',
 })
 
 
@@ -118,6 +119,7 @@ export default {
     this.form.name = sessionStorage.getItem("name");
     this.form.password = sessionStorage.getItem("password");
     this.form.userKind = sessionStorage.getItem("userKind");
+    this.form.accessToken = sessionStorage.getItem("accessToken");
   },
     methods: {
       refreshPage() {
@@ -162,7 +164,7 @@ export default {
                             sessionStorage.setItem("name", this.form.name);
                             sessionStorage.setItem("password", this.form.password);
                             sessionStorage.setItem("userKind", this.form.userKind);
-
+                            sessionStorage.setItem("accessToken", this.form.accessToken);
 
 
                             this.refreshPage();
