@@ -38,9 +38,24 @@ export default {
     this.searchQuestion();
   },
     methods: {
-          searchQuestion() {
+      searchQuestion() {
       console.log('key.......', this.key);
-      const url = `http://localhost:8080/question/list?key=${this.key}&pageNo=1&word=${this.word}`;
+      console.log('word....', this.word)
+      let url;
+      if (this.key =='all' || this.key == '' || this.word == '') {
+        url = `http://localhost:8080/question/list`;
+      } else {
+        let tempKey;
+        if (this.key == '제목') {
+          tempKey = 'title';
+        } else if (this.key == '내용') {
+          tempKey = 'content';
+        } else if (this.key == '글쓴이') {
+          tempKey = 'author';
+        }
+        url = `http://localhost:8080/question/listByWord/${tempKey}/${this.word}`;
+      }
+      console.log(url)
       axios.get(url).then(({ data }) => {
         console.log('응답 데이타', data);
         this.questions = data;
@@ -52,6 +67,14 @@ export default {
        //현재 경로로
         this.$router.go(this.$router.currentRoute);
      },
+     onSelectChange(event) {
+        console.log(this.key);
+     },
+     onSearchChange(event) {
+        if (this.key != 'all') {
+        this.searchQuestion();
+        }
+     }
     }
 }
 </script>
@@ -100,6 +123,8 @@ export default {
         <VSelect
           :items="keys"
           label="선택하세요"
+          v-model="this.key"
+         @update:modelValue="onSelectChange"
         ></VSelect>
       </VCol>
 
@@ -107,7 +132,7 @@ export default {
         class="d-flex"
         cols="12"
         sm="6"
-      >  <VTextField label="검색어를 입력"></VTextField>
+      >  <VTextField v-model="this.word" label="검색어를 입력" @update:modelValue="onSearchChange"></VTextField>
       </VCol>
 </VRow>
 

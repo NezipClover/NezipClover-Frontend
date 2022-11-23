@@ -78,10 +78,17 @@ export default {
       const url='http://localhost:8080/question/regist'
       axios.post(url, this.question).then(({ data }) => {
         console.log(data);
-        let msg = '등록 처리시 문제가 발생했습니다.';
-        if (data === 'success') msg = '질문 등록이 완료되었습니다.';
-        alert(msg);
-        this.moveHandler();
+        
+        if (data === 'success') {
+          alert('질문 등록이 완료되었습니다.');
+          
+          this.moveHandler();
+        } else {
+          alert('등록 처리시 문제가 발생했습니다.');
+          this.moveHandler();
+        }
+        
+        
       });
     },
      async checkHandler() {
