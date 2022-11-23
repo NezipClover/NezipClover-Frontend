@@ -39,7 +39,7 @@ const isPasswordVisible = ref(false)
       </VCardItem>
 
       <VCardText class="pt-2">
-        <h5 class="text-h5 font-weight-semibold mb-1">
+        <h5 class="text-h5 font-weight-semibold mb-1 text-center">
           행운 가득한 집 찾으러 가요! 🚀
         </h5>
         <p class="mb-0">
