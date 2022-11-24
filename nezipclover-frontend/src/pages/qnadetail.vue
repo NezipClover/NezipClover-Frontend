@@ -49,17 +49,20 @@
       </v-card>
       <br>
           </div>
-    <div class="d-flex flex-wrap gap-4 mt-4">
+    <div class="d-flex flex-wrap gap-4 mt-4" >
+      <span v-if="this.isLogin()">
           <VBtn
             
             
             type="reset"
             class="btn btn-info"
             color="error"
+          
             @click="answerRegister"
           >
             답변 등록
           </VBtn>
+          </span>
         </div>  
     </v-container>
     
@@ -77,6 +80,7 @@ export default {
     console.log(this.$route.query.id);
     this.userEmail = sessionStorage.getItem("email");
     this.question.id = this.$route.query.id;
+
 
     let url=`http://localhost:8080/question/search/${this.question.id}`
       axios.get(url).then(({ data }) => {
@@ -115,7 +119,12 @@ export default {
     
     methods: {
 
-    
+    isLogin() {
+    if (sessionStorage.getItem("email")) {
+      return true;
+    }
+    return false;
+    },
 
     moveHandler() {
       console.log('moveHandler...........');

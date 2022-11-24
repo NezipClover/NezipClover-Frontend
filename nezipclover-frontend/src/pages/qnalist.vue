@@ -37,8 +37,15 @@ export default {
   },
     created() {
     this.searchQuestion();
+
   },
     methods: {
+      isLogin() {
+        if (sessionStorage.getItem("email")) {
+          return true;
+        }
+        return false;
+      },
       goDetail(qId) {
         console.log(qId);
         this.$router.push({ name: "qnadetail", query: {id: qId} });
@@ -106,6 +113,7 @@ export default {
         </VRow>
 
         <div class="d-flex flex-wrap gap-4 mt-4">
+          <span v-if="this.isLogin()">
           <VBtn
             
             
@@ -115,6 +123,7 @@ export default {
           >
             질문 등록
           </VBtn>
+          </span>
         </div>
 
     </VCardText>
@@ -196,6 +205,7 @@ export default {
         </VRow>
 
         <div class="d-flex flex-wrap gap-4 mt-4">
+          <span v-if="this.isLogin()">
           <VBtn
             
             
@@ -204,6 +214,7 @@ export default {
           >
             질문 등록
           </VBtn>
+          </span>
         </div>
 
     </VCardText>

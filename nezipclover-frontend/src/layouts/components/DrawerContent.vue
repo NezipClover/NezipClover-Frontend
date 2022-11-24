@@ -16,7 +16,7 @@ const upgradeBanner = computed(() => {
 
 <template>
   <!-- 👉 Nav header -->
-  <div class="nav-header">
+  <div class="nav-header" @click="afterEffect">
     <RouterLink
       to="/"
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
@@ -41,16 +41,18 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
- 
-    <VerticalNavLink
+    <div v-if="this.isLogin">
+    <VerticalNavLink 
       :item="{
         title: '프로필',
-        to: 'account-settings',
+            to: 'account-settings',
         icon: { icon: 'mdi-account-cog-outline' }
       }"
     v-if="dealer"/>
+    </div>
     <!-- 👉 Pages -->
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
+     <div v-if="!this.isLogin">
     <VerticalNavLink
       :item="{
         title: '로그인',
@@ -59,7 +61,8 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-login' }
       }"
     />
-    <VerticalNavLink
+     </div>
+    <VerticalNavLink @click="clearSession"
       :item="{
         title: '회원 가입',
         to: 'register',
@@ -151,11 +154,27 @@ const upgradeBanner = computed(() => {
 
 
 export default {
+  created() {
+    if (sessionStorage.getItem("email")) {
+      this.isLogin = true;
+    }
+  },
   data() {
     return {
       dealer : true,
-    };
+      isLogin : false,
+    }
   },
+  methods: {
+    afterEffect() {
+      this.isLogin = false;
+    },
+    clearSession() {
+      sessionStorage.clear();
+      alert("로그아웃 후 회원가입 페이지로 이동합니다.")
+    }
+  }
+
 };
 </script>
 
