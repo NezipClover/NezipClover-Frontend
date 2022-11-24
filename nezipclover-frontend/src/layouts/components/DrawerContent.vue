@@ -16,7 +16,7 @@ const upgradeBanner = computed(() => {
 
 <template>
   <!-- 👉 Nav header -->
-  <div class="nav-header">
+  <div class="nav-header" @click="afterEffect">
     <RouterLink
       to="/"
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
@@ -34,6 +34,7 @@ const upgradeBanner = computed(() => {
 
   <!-- 👉 Nav items -->
   <ul>
+
     <VerticalNavLink
       :item="{
         title: '거래 내역',
@@ -41,16 +42,18 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
- 
-    <VerticalNavLink
+    <div v-if="this.isLogin">
+    <VerticalNavLink 
       :item="{
         title: '프로필',
-        to: 'account-settings',
+            to: 'account-settings',
         icon: { icon: 'mdi-account-cog-outline' }
       }"
     v-if="dealer"/>
+    </div>
     <!-- 👉 Pages -->
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
+     <div v-if="!this.isLogin">
     <VerticalNavLink
       :item="{
         title: '로그인',
@@ -59,7 +62,8 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-login' }
       }"
     />
-    <VerticalNavLink
+     </div>
+    <VerticalNavLink @click="clearSession"
       :item="{
         title: '회원 가입',
         to: 'register',
@@ -80,11 +84,18 @@ const upgradeBanner = computed(() => {
 
     <!-- 👉 User Interface -->
     <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" v-if="dealer"/>
-
-    <VerticalNavLink
+  
+    <VerticalNavLink v-if="this.isDealer"
       :item="{
         title: '매물등록',
         to: 'onsale',
+        icon: { icon: 'mdi-domain-plus' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: '질문&답변 게시판',
+        to: 'qnalist',
         icon: { icon: 'mdi-domain-plus' }
       }"
     />
@@ -144,11 +155,32 @@ const upgradeBanner = computed(() => {
 
 
 export default {
+  created() {
+    if (sessionStorage.getItem("email")) {
+      this.isLogin = true;
+    }
+    if (sessionStorage.getItem("userKind") == 1) {
+      this.isDealer = true;
+    }
+  },
   data() {
     return {
       dealer : true,
-    };
+      isLogin : false,
+      isDealer : false,
+    }
   },
+  methods: {
+    afterEffect() {
+      this.isLogin = false;
+      this.isDealer = false;
+    },
+    clearSession() {
+      sessionStorage.clear();
+      alert("로그아웃 후 회원가입 페이지로 이동합니다.")
+    }
+  }
+
 };
 </script>
 

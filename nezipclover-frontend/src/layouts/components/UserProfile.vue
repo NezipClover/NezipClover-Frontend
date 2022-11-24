@@ -39,8 +39,16 @@ export default {
     this.infoForLogout.accessToken = sessionStorage.getItem("accessToken");
     console.log(this.infoForLogout.email);
     console.log(this.infoForLogout.accessToken);
+    
   },
+
     methods: {
+      isLogin() {
+        if (sessionStorage.getItem("email")) {
+          return true;
+        }
+        return false;
+      },
       changeProfilePhoto() {
       eventBus.$on('이벤트명', function(data){ console.log(555); });
       console.log("다른 컴포넌트 호출 성공")
@@ -48,13 +56,13 @@ export default {
      },
      moveHandler() {
        console.log("moveHandler...........")
-       this.$router.push({ name: "index" });
+       this.$router.push({ name: "login" });
      },
       onLogout(event) {
         event.preventDefault(); 
         console.log(123123555);
           if (!sessionStorage.getItem("accessToken")) {
-            alert("로그인 된 상태가 아니므로 메인 화면으로 돌아갑니다.");
+            alert("로그인 된 상태가 아닙니다. 로그인 화면으로 돌아갑니다.");
             this.moveHandler();
           } else {
           const url =`http://localhost:8080/user/logout`;
@@ -69,7 +77,7 @@ export default {
                 sessionStorage.clear();
                 sessionStorage.clear;
 
-                alert("웹 사이트로부터 로그아웃 했습니다.")
+                alert("웹 사이트로부터 로그아웃 했습니다. 로그인 화면으로 돌아갑니다.")
 
 
                 this.moveHandler();
@@ -86,12 +94,14 @@ export default {
 
 
 <template>
+<div v-if="this.isLogin() ">
   <VBadge v-bind="avatarBadgeProps">
     <VAvatar
       style="cursor: pointer;"
       color="primary"
       variant="tonal"
     >
+    
       <VImg :src="avatar1" />
 
       <!-- SECTION Menu -->
@@ -120,12 +130,12 @@ export default {
 
             <VListItemTitle class="font-weight-semibold" >
               
-              이름(닉네임) : {{this.info.name}}
+              이름 : {{this.info.name}}
               
               
             </VListItemTitle>
             <VListItemSubtitle class="text-disabled">
-              사용자 타입 : {{this.info.userKind == 0 ? "이용자" : "공인중개사"}}
+              역할 : {{this.info.userKind == 0 ? "이용자" : "공인중개사"}}
               
             </VListItemSubtitle>
           </VListItem>
@@ -192,5 +202,7 @@ export default {
       </VMenu>
       <!-- !SECTION -->
     </VAvatar>
+   
   </VBadge>
+   </div>
 </template>

@@ -26,6 +26,7 @@ const isPasswordVisible = ref(false)
       class="auth-card pa-4 pt-7"
       max-width="448"
     >
+    
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
@@ -164,7 +165,7 @@ export default {
           alert("올바른 형식의 이메일 주소를 입력 해 주세요.");
         } else {
           const url =`http://localhost:8080/user/login`;
-
+      
         axios.post(url, this.form)
           .then(({data})=>{
             console.log("data....")
@@ -175,7 +176,7 @@ export default {
             if (data.result == "success") {
 
                 event.preventDefault()
-                alert(JSON.stringify(this.form))
+                alert("정상적으로 로그인 되었습니다.")
 
              
                 sessionStorage.setItem("email", data.email);

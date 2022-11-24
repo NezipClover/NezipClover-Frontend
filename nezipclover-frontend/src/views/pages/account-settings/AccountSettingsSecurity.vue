@@ -168,7 +168,11 @@ export default {
 
 
                             this.refreshPage();
-                        } 
+                        } else {
+                            alert(data);
+                            sessionStorage.clear();
+                            this.$router.push({ name: 'index' });
+                        }
                       })
 
 

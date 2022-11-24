@@ -163,7 +163,7 @@ export default {
             if (data == "success") {
 
                 event.preventDefault()
-                alert(JSON.stringify(this.form))
+                alert("저장되었습니다.")
 
 
 
@@ -176,7 +176,12 @@ export default {
 
 
                 this.refreshPage();
-            } 
+            } else {
+              alert(data);
+              sessionStorage.clear();
+              this.$router.push({ name: 'index' });
+            }
+
           })
 
  
