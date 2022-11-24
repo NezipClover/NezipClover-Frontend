@@ -32,12 +32,17 @@ export default {
         // { key: 'author', label: '글쓴이' },
       ], //table의 header에 표시되는 데이타 mapping
       key: 'all',
+      detailKey: '',
     };
   },
     created() {
     this.searchQuestion();
   },
     methods: {
+      goDetail(qId) {
+        console.log(qId);
+        this.$router.push({ name: "qnadetail", query: {id: qId} });
+      },
       searchQuestion() {
       console.log('key.......', this.key);
       console.log('word....', this.word)
@@ -138,7 +143,7 @@ export default {
 
 
 
-    <VTable class="text-no-wrap" >
+    <VTable class="text-no-wrap">
       <thead>
         <tr>
           <th scope="col">
@@ -158,8 +163,7 @@ export default {
       <tbody>
         <tr
           v-for="question in this.questions"
-          :key="question.id" 
-          @clicked="goDetail"
+          :key="question.id" @click="goDetail(question.id)"
         >
           <td>
           {{question.id}}  <!-- {{ device.type }} -->
