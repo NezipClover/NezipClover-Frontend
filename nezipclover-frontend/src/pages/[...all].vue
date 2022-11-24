@@ -1,6 +1,6 @@
 <script setup>
 import { useTheme } from 'vuetify'
-import misc404 from '@/assets/images/pages/404.png'
+import misc404 from '@/assets/images/avatars/avatar-1.png'
 import miscMaskDark from '@/assets/images/pages/misc-mask-dark.png'
 import miscMaskLight from '@/assets/images/pages/misc-mask-light.png'
 import tree from '@/assets/images/pages/tree.png'
@@ -15,8 +15,8 @@ const authThemeMask = computed(() => {
   <div class="misc-wrapper">
     <ErrorHeader
       error-code="404"
-      error-title="Page Not Found ⚠️"
-      error-description="We couldn't find the page you are looking for."
+      error-title="없는 페이지 ⚠️"
+      error-description="페이지를 요청할 수 없어요"
     />
 
     <!-- 👉 Image -->
@@ -24,14 +24,14 @@ const authThemeMask = computed(() => {
       <VImg
         :src="misc404"
         alt="Coming Soon"
-        :max-width="800"
+        :max-width="300"
         class="mx-auto"
       />
       <VBtn
         to="/"
         class="mt-10"
       >
-        Back to Home
+        첫 화면으로 돌아가기
       </VBtn>
     </div>
 
