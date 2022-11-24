@@ -1,6 +1,9 @@
 <template>
   <div>
     <map-input></map-input>
+    <map-info
+     :selectedInfo="selectedInfo"
+     v-if="isInfo"></map-info>
     <div id="map" class="map"></div>
   </div>
 </template>
@@ -8,26 +11,24 @@
 <script>
 import { mapGetters} from "vuex";
 import MapInput from '@/views/map/MapInput.vue';
-
+import MapInfo from '@/views/map/MapInfo.vue';
 
 const MAP_APP_KEY = import.meta.env.VITE_MAP_APP_KEY;
-// const GMAP_APP_KEY = process.env.VUE_APP_GMAP_APP_KEY;
+
 
 export default {
-  components: { MapInput },
+  components: { MapInput, MapInfo },
  
   data() {
     return {
       map: null,
       markers: [],
-      clusterer: null,
       ps: null,
-      isSidebarOpen: false,
+      isInfo: false,
       resultVisible: false,
       selectedInfo: {},
       resultSearch: [],
-      rangeDeal: 20,
-      rangeInfra: 0,
+      
     };
   },
  
@@ -37,14 +38,10 @@ export default {
   },
   computed: {
     ...mapGetters('houseStore',['getHouses']),
-    // sidos() {
-    //   return this.$store.state.sidos;
-    // },
   },
 
   watch: {
     getHouses: function(val){
-      console.log("it changed!")
       this.updateMap(val);
     }
   },
@@ -59,7 +56,7 @@ export default {
       script.src =
         'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' +
         MAP_APP_KEY +
-        '&libraries=services,clusterer';
+        '&libraries=services';
       document.head.appendChild(script);
     },
 
@@ -83,13 +80,6 @@ export default {
       // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
       kakao.maps.event.addListener(this.map, 'tilesloaded', this.moveMap);
       kakao.maps.event.addListener(this.map, 'click', this.clickMap);
-
-      this.clusterer = new kakao.maps.MarkerClusterer({
-        map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-        minLevel: 4, // 클러스터 할 최소 지도 레벨
-      });
-
       this.ps = new kakao.maps.services.Places();
     },
 
@@ -123,9 +113,6 @@ export default {
       // 영역정보의 북동쪽 정보를 얻어옵니다
       var neLatlng = bounds.getNorthEast();
 
-      console.log('sw = ' + swLatlng);
-      console.log('ne = ' + neLatlng);
-
       
     },
 
@@ -137,29 +124,10 @@ export default {
 
     updateMap(houses) {
       this.clearMarkers(null);
-      this.clusterer.clear();
+      // this.clusterer.clear();
       var level = this.map.getLevel();
       console.log('현재 지도의 레벨 : ' + this.map.getLevel());
 
-      if (level > 5) {
-        return;
-      }
-
-      if (level > 4) {
-        for (let i = 0; i < houses.length; i++) {
-          this.markers.push(
-            new kakao.maps.Marker({
-              position: new kakao.maps.LatLng(
-                houses[i].lat,
-                houses[i].lng
-              ),
-              clickable: true,
-            })
-          );
-        }
-        this.clusterer.addMarkers(this.markers);
-        return;
-      }
 
       for (let i = 0; i < houses.length; i++) {
         const position = new kakao.maps.LatLng(
@@ -174,7 +142,7 @@ export default {
     // 마커를 생성하고 지도위에 표시하는 함수입니다
     addMarker(map, position, data) {
       console.log("마커 생성~~~~~")
-      // var MARKER_SRC = '@/assets/location_64.png';
+      
       var MARKER_SRC = 
         'https://cdn-icons-png.flaticon.com/512/1552/1552146.png';
       var imageSize = new kakao.maps.Size(42, 42);
@@ -222,7 +190,7 @@ export default {
     },
 
     openSidebar() {
-      this.isSidebarOpen = true;
+      this.isInfo = true;
     },
 
     selectInfo(data) {

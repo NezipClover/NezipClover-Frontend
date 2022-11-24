@@ -2,44 +2,17 @@
 
 
 <template>
-  <!-- <b-container
-    id="search-box"
-    class="m-2 p-1 position-absolute border border-light rounded shadow" -->
-  <!-- > -->
-    <!-- <b-row align-v="center" class="pl-3 py-1">
-      <div @click="main" class="mouseover-cursor pr-3">
-        <span class="pl-2">
-          <b-button variant="default" pill class="p-0 mr-1"
-            ><b-icon-building variant="primary" scale="1"></b-icon-building
-          ></b-button> </span
-        ><span class="font-weight-bold text-primary">HappyHouse</span>
-      </div>
-    </b-row> -->
-    <!-- <b-row class="p-1 mx-auto">
-      <span class="flex-fill"
-        ><b-form-input
-          id="search-input"
-          type="search"
-          class="form-control form-control"
-          placeholder="검색하고 싶은 장소를 입력하세요"
-          @keyup="searchQuery"
-          @keyup.enter="searchEnter"
-          v-model="query"
-          @focus="inputFocus"
-        ></b-form-input
-      ></span>
-      <span
-        ><b-button id="search-apt" variant="primary" @click="searchEnter">
-          검색
-        </b-button></span
-      >
-    </b-row> -->
-    <VCard style="position: absolute; width : 25% ; margin-top : 50px; z-index: 2; margin-left : 50px"
+ 
+    <VCard style="position: absolute; width : 30% ; margin-top : 80px; z-index: 2; margin-left : 10px"
   color="white"
   elevation="3"
-  height="99"
-  width="100"
+  height="150"
+  
+  
 >
+<VCardItem>
+          <VCardTitle ><h4 class="bg-primary">원하는 지역을 선택하고 매물 정보를 확인하세요!</h4></VCardTitle>
+        </VCardItem>
     <v-row class="text-center"
     style="padding-top : 20px; padding-left : 20px; padding-right : 20px;">
       <v-col class="sm-3">
@@ -142,7 +115,7 @@ export default {
     },
     dongList(){
       this.CLEAR_DONG_LIST();
-      this.dongList=null;
+      this.dongCode=null;
       if(this.gugunCode) this.getDong(this.gugunCode);
     },
     searchApt() {
