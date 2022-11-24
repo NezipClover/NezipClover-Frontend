@@ -2,11 +2,15 @@ import axios from "axios";
 
 // local vue api axios instance
 function apiInstance() {
+  console.log(import.meta.env.VITE_API_BASE_URL)
   const instance = axios.create({
-    baseURL: process.env.VUE_APP_API_BASE_URL,
+
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
+    
   });
   return instance;
 }
