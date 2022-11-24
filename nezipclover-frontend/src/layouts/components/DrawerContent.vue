@@ -34,7 +34,13 @@ const upgradeBanner = computed(() => {
 
   <!-- 👉 Nav items -->
   <ul>
-
+    <VerticalNavLink
+      :item="{
+        title: '분석 지표',
+        to: 'analysis',
+        icon: { icon: 'mdi-home-outline' }
+      }"
+    />
     <VerticalNavLink
       :item="{
         title: '거래 내역',

@@ -41,12 +41,22 @@ const options = computed(() => {
     },
     dataLabels: { enabled: false },
     colors: [
-      currentTheme.value.background,
-      currentTheme.value.background,
-      currentTheme.value.background,
+      // currentTheme.value.background,
+      // currentTheme.value.background,
+      // currentTheme.value.background,
       currentTheme.value.primary,
-      currentTheme.value.background,
-      currentTheme.value.background,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      currentTheme.value.primary,
+      
     ],
     states: {
       hover: { filter: { type: 'none' } },
@@ -54,13 +64,18 @@ const options = computed(() => {
     },
     xaxis: {
       categories: [
-        'Sun',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat',
+        '1월',
+        '2월',
+        '3월',
+        '4월',
+        '5월',
+        '6월',
+        '7월',
+        '8월',
+        '9월',
+        '10월',
+        '11월',
+        '12월',
       ],
       tickPlacement: 'on',
       labels: { show: false },
@@ -82,13 +97,9 @@ const options = computed(() => {
     },
   }
 })
-const series = [{
+let series = [{
   data: [
- 10,
- 9,
- 8,
- 7,
- 6,5,4,3
+ 1, 255, 311, 4, 5, 6, 7, 8, 9, 10, 11, 12
 
   ],
 }]
@@ -140,3 +151,30 @@ const series = [{
   </VCard>
 </template>
 
+<script>
+import { default as axios } from 'axios';
+
+export default {
+    data: () => ({
+      entireDeal: [],
+    }),
+  created() {
+  this.entireDealAmount();
+  },
+    methods: {
+      entireDealAmount() 
+      {   
+          const url =`http://localhost:8080/house/entireDealAmount`;
+          axios.get(url)
+          .then(({data})=>{
+            console.log("data....")
+            console.log(data);
+            this.entireDeal = data;
+            this.series[0].data = data;
+      
+          })
+      }
+  }
+}
+
+</script>
