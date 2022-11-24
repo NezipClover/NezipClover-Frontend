@@ -34,6 +34,7 @@ const upgradeBanner = computed(() => {
 
   <!-- 👉 Nav items -->
   <ul>
+
     <VerticalNavLink
       :item="{
         title: '거래 내역',
@@ -83,8 +84,8 @@ const upgradeBanner = computed(() => {
 
     <!-- 👉 User Interface -->
     <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" v-if="dealer"/>
-
-    <VerticalNavLink
+  
+    <VerticalNavLink v-if="this.isDealer"
       :item="{
         title: '매물등록',
         to: 'onsale',
@@ -158,16 +159,21 @@ export default {
     if (sessionStorage.getItem("email")) {
       this.isLogin = true;
     }
+    if (sessionStorage.getItem("userKind") == 1) {
+      this.isDealer = true;
+    }
   },
   data() {
     return {
       dealer : true,
       isLogin : false,
+      isDealer : false,
     }
   },
   methods: {
     afterEffect() {
       this.isLogin = false;
+      this.isDealer = false;
     },
     clearSession() {
       sessionStorage.clear();

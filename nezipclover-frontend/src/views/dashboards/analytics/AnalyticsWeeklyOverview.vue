@@ -84,13 +84,12 @@ const options = computed(() => {
 })
 const series = [{
   data: [
-    37,
-    57,
-    45,
-    75,
-    57,
-    40,
-    65,
+ 10,
+ 9,
+ 8,
+ 7,
+ 6,5,4,3
+
   ],
 }]
 </script>
