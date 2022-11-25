@@ -26,7 +26,7 @@ const checkbox = ref(false)
           placeholder="동 이름"
         />
       </VCol>
-      
+
       <VCol cols="12">
         <VTextField
           v-model="house.buildYear"
@@ -62,13 +62,14 @@ const checkbox = ref(false)
         />
       </VCol>
 
-     
-
       <VCol
         cols="12"
-        class="d-flex gap-4 "
+        class="d-flex gap-4"
       >
-        <VBtn type="submit" @click="checkHandler">
+        <VBtn
+          type="submit"
+          @click="checkHandler"
+        >
           Submit
         </VBtn>
 
@@ -84,76 +85,66 @@ const checkbox = ref(false)
   </VForm>
 </template>
 <script>
-import { default as axios } from 'axios';
+import { default as axios } from 'axios'
 
 export default {
-    data: () => ({
-      house:{
-        aptCode:'',
-        aptName:'',
-        dongCode:'',
-        dongName:'',
-        buildYear:'',
-        jibun:'',
-        lat:'',
-        lng:'',
-      },
-
-    }),
-    methods: {
+  data: () => ({
+    house: {
+      aptCode: '',
+      aptName: '',
+      dongCode: '',
+      dongName: '',
+      buildYear: '',
+      jibun: '',
+      lat: '',
+      lng: '',
+    },
+  }),
+  methods: {
     moveHandler() {
-      console.log('moveHandler...........');
-      this.$router.push({ name: 'onsale' });
+      console.log('moveHandler...........')
+      this.$router.push({ name: 'onsale' })
     },
     async checkHandler() {
-      console.log('checkHandler..........');
-      let err = true;
-      let msg = '';
-      !this.house.aptName && ((msg = '건물명을 입력해주세요'), (err = false), this.$refs.title.focus());
-      err && !this.house.dongName && ((msg = '동 이름을 입력해주세요'), (err = false), this.$refs.author.focus());
-      err && !this.house.buildYear && ((msg = '건축년도를 입력해주세요'), (err = false), this.$refs.content.focus());
-      err && !this.house.jibun && ((msg = '지번을 입력해주세요'), (err = false), this.$refs.content.focus());
-      err && !this.house.lat && ((msg = '위도를 입력해주세요'), (err = false), this.$refs.content.focus());
-      err && !this.house.lng && ((msg = '경도를 입력해주세요'), (err = false), this.$refs.content.focus());
-      if (!err) alert(msg);
+      console.log('checkHandler..........')
+      let err = true
+      let msg = ''
+      !this.house.aptName && ((msg = '건물명을 입력해주세요'), (err = false), this.$refs.title.focus())
+      err && !this.house.dongName && ((msg = '동 이름을 입력해주세요'), (err = false), this.$refs.author.focus())
+      err && !this.house.buildYear && ((msg = '건축년도를 입력해주세요'), (err = false), this.$refs.content.focus())
+      err && !this.house.jibun && ((msg = '지번을 입력해주세요'), (err = false), this.$refs.content.focus())
+      err && !this.house.lat && ((msg = '위도를 입력해주세요'), (err = false), this.$refs.content.focus())
+      err && !this.house.lng && ((msg = '경도를 입력해주세요'), (err = false), this.$refs.content.focus())
+      if (!err) alert(msg)
       // 만약, 내용이 다 입력되어 있다면 registArticle 호출
-      
-      else{
+      else {
         try {
-          const dongCode= await axios.get(`http://localhost:8080/house/getdongname?dongname=${this.house.dongName}`)
+          const dongCode = await axios.get(`http://localhost:8080/house/getdongname?dongname=${this.house.dongName}`)
           const aptCode = await axios.get(`http://localhost:8080/house/getaptcode`)
           console.log(dongCode)
           console.log(aptCode)
-          this.house.aptCode= aptCode.data
-          this.house.dongCode= dongCode.data.dongCode
-          this.house.dongName=dongCode.data.dongName
+          this.house.aptCode = aptCode.data
+          this.house.dongCode = dongCode.data.dongCode
+          this.house.dongName = dongCode.data.dongName
           console.log(this.house)
-          this.createHandler();
+          this.createHandler()
         } catch (error) {
-         console.log("Error >>",error); 
+          console.log('Error >>', error)
         }
-      
-      
       }
-
     },
     createHandler() {
-      console.log('createHandler........');
-     console.log(this.house)
-      const url='http://localhost:8080/house/regist'
+      console.log('createHandler........')
+      console.log(this.house)
+      const url = 'http://localhost:8080/house/regist'
       axios.post(url, this.house).then(({ data }) => {
-        console.log(data);
-        let msg = '등록 처리시 문제가 발생했습니다.';
-        if (data === 'success') msg = '건물 등록이 완료되었습니다.';
-        alert(msg);
-        this.moveHandler();
-      });
+        console.log(data)
+        let msg = '등록 처리시 문제가 발생했습니다.'
+        if (data === 'success') msg = '건물 등록이 완료되었습니다.'
+        alert(msg)
+        this.moveHandler()
+      })
     },
   },
-    
-
-    
-
-  }
+}
 </script>
-
