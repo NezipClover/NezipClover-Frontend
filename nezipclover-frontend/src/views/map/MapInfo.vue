@@ -82,7 +82,10 @@ const tabItems = ['현재 매물 정보', '이전 거래 내역']
         :value="item"
       >
         <VCardItem v-if="this.tabContent == '현재 매물 정보'">
-          <VTable height="300">
+          <VTable
+            height="300"
+            v-if="!this.onsaleInfo.length == 0"
+          >
             <thead class="bg-primary">
               <tr>
                 <th class="text-uppercase">거래 번호</th>
@@ -93,17 +96,7 @@ const tabItems = ['현재 매물 정보', '이전 거래 내역']
                 <th class="text-center text-uppercase">중개사 이메일</th>
               </tr>
             </thead>
-            <tbody v-if="!onsaleInfo">
-              <tr>
-                <td
-                  colspan="6"
-                  class="text-center"
-                >
-                  <h4 class="text-center">현재 거래가능한 매물이 없습니다!</h4>
-                </td>
-              </tr>
-            </tbody>
-            <tbody v-else>
+            <tbody>
               <tr
                 v-for="item in onsaleInfo"
                 :key="item.no"
@@ -150,6 +143,11 @@ const tabItems = ['현재 매물 정보', '이전 거래 내역']
                 </td>
               </tr>
             </tbody>
+          </VTable>
+          <VTable v-else>
+            <tr>
+              <td>현재 거래 가능한 매물이 없습니다.</td>
+            </tr>
           </VTable>
         </VCardItem>
         <VCardItem v-else-if="this.tabContent == '이전 거래 내역'">
@@ -250,6 +248,7 @@ export default {
   },
   watch: {
     selectedInfo: function (val) {
+      console.log(this.onsaleInfo)
       this.getInfos(val.aptCode)
     },
     navigationTab: function (val) {
